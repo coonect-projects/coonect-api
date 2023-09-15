@@ -15,6 +15,7 @@ public enum ErrorCode {
 
   // Common
   INVALID_TYPE_VALUE(SC_BAD_REQUEST, "C-001", "Invalid Type Value"),
+  INVALID_INPUT_VALUE(SC_BAD_REQUEST, "C-002", "Invalid Input Value"),
 
 
   // Business

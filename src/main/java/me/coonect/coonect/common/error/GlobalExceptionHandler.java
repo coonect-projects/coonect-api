@@ -1,5 +1,7 @@
 package me.coonect.coonect.common.error;
 
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import me.coonect.coonect.common.error.exception.BusinessException;
 import me.coonect.coonect.common.error.exception.DuplicationException;
@@ -27,6 +29,22 @@ public class GlobalExceptionHandler {
     int status = errorCode.getStatus();
 
     return new ResponseEntity<>(response, HttpStatusCode.valueOf(status));
+  }
+
+  @ExceptionHandler(ConstraintViolationException.class)
+  protected ResponseEntity<ErrorResponse> handleConstraintViolationException(
+      final ConstraintViolationException e) {
+    log.info("Handle ConstraintViolationException", e);
+
+    final ErrorCode errorCode = ErrorCode.INVALID_INPUT_VALUE;
+    int status = errorCode.getStatus();
+
+    String[] reasons = e.getConstraintViolations().stream()
+        .map(ConstraintViolation::getMessage)
+        .toArray(String[]::new);
+
+    return new ResponseEntity<>(ErrorResponse.of(errorCode, reasons),
+        HttpStatusCode.valueOf(status));
   }
 
   @ExceptionHandler(BusinessException.class)

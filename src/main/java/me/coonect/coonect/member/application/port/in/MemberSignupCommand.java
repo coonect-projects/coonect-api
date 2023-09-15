@@ -15,7 +15,7 @@ import me.coonect.coonect.member.application.port.in.validation.Password;
 public class MemberSignupCommand {
 
   @Email
-  @NotBlank
+  @NotBlank(message = "email은 공백일 수 없습니다.")
   private final String email;
 
   @Password
@@ -24,8 +24,8 @@ public class MemberSignupCommand {
   @Nickname
   private final String nickname;
 
-  @Past
-  @NotNull
+  @Past(message = "birthday는 과거여야 합니다.")
+  @NotNull(message = "birthday는 null일 수 없습니다.")
   private final LocalDate birthday;
 
   public MemberSignupCommand(String email, String password, String nickname, LocalDate birthday) {
