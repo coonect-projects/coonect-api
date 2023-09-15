@@ -14,29 +14,26 @@ public class Member {
   private Long id;
   private String encodedPassword;
   private String nickname;
-  private String name;
   private LocalDate birthday;
 
-  public Member(Long id, String email, String encodedPassword, String nickname, String name,
+  public Member(Long id, String email, String encodedPassword, String nickname,
       LocalDate birthday) {
     this.id = id;
     this.email = email;
     this.encodedPassword = encodedPassword;
     this.nickname = nickname;
-    this.name = name;
     this.birthday = birthday;
   }
 
-  public static Member withoutId(String email, String rawPassword, String nickname, String name,
+  public static Member withoutId(String email, String rawPassword, String nickname,
       LocalDate birthday) {
     String encodedPassword = passwordEncoder.encode(rawPassword);
-    return new Member(null, email, encodedPassword, nickname, name, birthday);
+    return new Member(null, email, encodedPassword, nickname, birthday);
   }
 
   public static Member withEncodedPassword(Long id, String email, String encodedPassword,
       String nickname,
-      String name,
       LocalDate birthday) {
-    return new Member(id, email, encodedPassword, nickname, name, birthday);
+    return new Member(id, email, encodedPassword, nickname, birthday);
   }
 }

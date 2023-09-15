@@ -31,18 +31,15 @@ public class MemberJpaEntity {
   @Column(unique = true, nullable = false)
   private String nickname;
 
-  private String name;
 
   private LocalDate birthday;
 
   MemberJpaEntity(Long id, String email, String encodedPassword, String nickname,
-      String name,
       LocalDate birthday) {
     this.id = id;
     this.email = email;
     this.encodedPassword = encodedPassword;
     this.nickname = nickname;
-    this.name = name;
     this.birthday = birthday;
   }
 
@@ -51,11 +48,10 @@ public class MemberJpaEntity {
         member.getEmail(),
         member.getEncodedPassword(),
         member.getNickname(),
-        member.getName(),
         member.getBirthday());
   }
 
   Member toMember() {
-    return Member.withEncodedPassword(id, email, encodedPassword, nickname, name, birthday);
+    return Member.withEncodedPassword(id, email, encodedPassword, nickname, birthday);
   }
 }
