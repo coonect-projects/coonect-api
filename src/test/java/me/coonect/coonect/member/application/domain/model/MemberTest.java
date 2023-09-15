@@ -15,13 +15,12 @@ class MemberTest {
     // given
     // when
     Member member = Member.withoutId("duk9741@gmail.com",
-        "raw_password",
+        "@12cdefghijkl",
         "dukcode",
-        "김덕윤",
         LocalDate.of(1995, 1, 10));
 
     // then
-    assertThat(member.getEncodedPassword()).isNotEqualTo("raw_password");
+    assertThat(member.getEncodedPassword()).isNotEqualTo("@12cdefghijkl");
   }
 
   @Test
@@ -32,7 +31,6 @@ class MemberTest {
         "duk9741@gmail.com",
         "encoded_password",
         "dukcode",
-        "김덕윤",
         LocalDate.of(1995, 1, 10));
 
     // then
@@ -44,16 +42,14 @@ class MemberTest {
     // given
     // when
     Member member = Member.withoutId("duk9741@gmail.com",
-        "raw_password",
+        "@12cdefghijkl",
         "dukcode",
-        "김덕윤",
         LocalDate.of(1995, 1, 10));
 
     // then
     assertThat(member.getId()).isNull();
     assertThat(member.getEmail()).isEqualTo("duk9741@gmail.com");
     assertThat(member.getNickname()).isEqualTo("dukcode");
-    assertThat(member.getName()).isEqualTo("김덕윤");
     assertThat(member.getBirthday()).isEqualTo(LocalDate.of(1995, 1, 10));
   }
 

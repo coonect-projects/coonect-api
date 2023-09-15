@@ -18,7 +18,6 @@ class MemberJpaEntityTest {
         "duk9741@gmail.com",
         "encoded_password",
         "dukcode",
-        "김덕윤",
         LocalDate.of(1995, 1, 10));
 
     // when
@@ -29,7 +28,6 @@ class MemberJpaEntityTest {
     assertThat(member.getEmail()).isEqualTo("duk9741@gmail.com");
     assertThat(member.getEncodedPassword()).isEqualTo("encoded_password");
     assertThat(member.getNickname()).isEqualTo("dukcode");
-    assertThat(member.getName()).isEqualTo("김덕윤");
     assertThat(member.getBirthday()).isEqualTo(LocalDate.of(1995, 1, 10));
   }
 
@@ -41,7 +39,6 @@ class MemberJpaEntityTest {
         "duk9741@gmail.com",
         "encoded_password",
         "dukcode",
-        "김덕윤",
         LocalDate.of(1995, 1, 10));
 
     // when
@@ -52,7 +49,6 @@ class MemberJpaEntityTest {
     assertThat(memberJpaEntity.getEmail()).isEqualTo("duk9741@gmail.com");
     assertThat(memberJpaEntity.getEncodedPassword()).isEqualTo("encoded_password");
     assertThat(memberJpaEntity.getNickname()).isEqualTo("dukcode");
-    assertThat(memberJpaEntity.getName()).isEqualTo("김덕윤");
     assertThat(memberJpaEntity.getBirthday()).isEqualTo(LocalDate.of(1995, 1, 10));
   }
 }

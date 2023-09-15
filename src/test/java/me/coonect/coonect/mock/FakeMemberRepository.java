@@ -29,7 +29,6 @@ public class FakeMemberRepository implements MemberRepository {
           member.getEmail(),
           member.getEncodedPassword(),
           member.getNickname(),
-          member.getName(),
           member.getBirthday());
       data.add(newMember);
       return newMember;

@@ -73,7 +73,6 @@ class MemberRepositoryImplTest {
         "xxxxxxx@gmail.com",
         "encoded_password",
         "xxxxxxx",
-        "김덕윤",
         LocalDate.of(1995, 1, 10));
 
     // when
@@ -84,7 +83,6 @@ class MemberRepositoryImplTest {
     assertThat(savedMember.getEmail()).isEqualTo("xxxxxxx@gmail.com");
     assertThat(savedMember.getEncodedPassword()).isEqualTo("encoded_password");
     assertThat(savedMember.getNickname()).isEqualTo("xxxxxxx");
-    assertThat(savedMember.getName()).isEqualTo("김덕윤");
     assertThat(savedMember.getBirthday()).isEqualTo(LocalDate.of(1995, 1, 10));
   }
 
