@@ -1,4 +1,4 @@
-package me.coonect.coonect.member.adapter.out;
+package me.coonect.coonect.member.adapter.out.persistence;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

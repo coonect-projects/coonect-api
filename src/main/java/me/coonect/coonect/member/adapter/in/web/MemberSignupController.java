@@ -1,4 +1,4 @@
-package me.coonect.coonect.member.adapter.in;
+package me.coonect.coonect.member.adapter.in.web;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

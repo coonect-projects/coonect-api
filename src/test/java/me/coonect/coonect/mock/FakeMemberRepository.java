@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 
 public class FakeMemberRepository implements MemberRepository {
 

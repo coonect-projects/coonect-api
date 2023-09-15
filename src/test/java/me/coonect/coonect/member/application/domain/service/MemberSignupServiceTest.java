@@ -8,7 +8,7 @@ import me.coonect.coonect.member.application.domain.exception.EmailDuplicationEx
 import me.coonect.coonect.member.application.domain.exception.NicknameDuplicationException;
 import me.coonect.coonect.member.application.domain.model.Member;
 import me.coonect.coonect.member.application.port.in.MemberSignupCommand;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import me.coonect.coonect.mock.FakeMemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;

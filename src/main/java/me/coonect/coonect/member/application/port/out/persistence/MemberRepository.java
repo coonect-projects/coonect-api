@@ -1,4 +1,4 @@
-package me.coonect.coonect.member.application.port.out;
+package me.coonect.coonect.member.application.port.out.persistence;
 
 import me.coonect.coonect.member.application.domain.model.Member;
 

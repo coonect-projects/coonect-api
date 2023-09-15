@@ -1,13 +1,13 @@
 package me.coonect.coonect.mock;
 
 import lombok.Builder;
-import me.coonect.coonect.member.adapter.in.MemberSignupController;
-import me.coonect.coonect.member.adapter.in.NicknameValidationController;
+import me.coonect.coonect.member.adapter.in.web.MemberSignupController;
+import me.coonect.coonect.member.adapter.in.web.NicknameValidationController;
 import me.coonect.coonect.member.application.domain.service.MemberSignupService;
 import me.coonect.coonect.member.application.domain.service.NicknameValidationService;
 import me.coonect.coonect.member.application.port.in.MemberSignupUseCase;
 import me.coonect.coonect.member.application.port.in.NicknameValidationUseCase;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 
 public class TestContainer {
 

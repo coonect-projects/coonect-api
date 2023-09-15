@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import me.coonect.coonect.member.application.domain.model.Member;
 import me.coonect.coonect.member.application.port.in.NicknameValidationQuery;
 import me.coonect.coonect.member.application.port.in.NicknameValidationUseCase;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import me.coonect.coonect.mock.FakeMemberRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayNameGeneration;

@@ -1,8 +1,8 @@
-package me.coonect.coonect.member.adapter.out;
+package me.coonect.coonect.member.adapter.out.persistence;
 
 import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.stereotype.Repository;
 
 @RequiredArgsConstructor

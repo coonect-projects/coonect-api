@@ -6,7 +6,7 @@ import me.coonect.coonect.member.application.domain.exception.NicknameDuplicatio
 import me.coonect.coonect.member.application.domain.model.Member;
 import me.coonect.coonect.member.application.port.in.MemberSignupCommand;
 import me.coonect.coonect.member.application.port.in.MemberSignupUseCase;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
