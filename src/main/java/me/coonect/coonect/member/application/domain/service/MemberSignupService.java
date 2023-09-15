@@ -8,13 +8,16 @@ import me.coonect.coonect.member.application.domain.model.MemberSignup;
 import me.coonect.coonect.member.application.port.in.MemberSignupUseCase;
 import me.coonect.coonect.member.application.port.out.MemberRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class MemberSignupService implements MemberSignupUseCase {
 
   private final MemberRepository memberRepository;
 
+  @Transactional
   @Override
   public Member signup(final MemberSignup memberSignup) {
     if (memberRepository.existsByEmail(memberSignup.getEmail())) {
