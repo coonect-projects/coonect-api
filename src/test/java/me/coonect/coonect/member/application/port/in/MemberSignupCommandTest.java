@@ -134,7 +134,7 @@ class MemberSignupCommandTest {
   }
 
   @Test
-  public void 닉네임_은_2자리_이상이어야_한다() throws Exception {
+  public void nickname_은_2자리_이상이어야_한다() throws Exception {
     // given
     // when
     assertThatThrownBy(() ->
@@ -147,7 +147,7 @@ class MemberSignupCommandTest {
   }
 
   @Test
-  public void 닉네임_은_10자리_이하여야_한다() throws Exception {
+  public void nickname_은_10자리_이하여야_한다() throws Exception {
     // given
     // when
     assertThatThrownBy(() ->
@@ -160,7 +160,7 @@ class MemberSignupCommandTest {
   }
 
   @Test
-  public void 닉네임_은_빈칸이_존재하면_안된다() throws Exception {
+  public void nickname_은_빈칸이_존재하면_안된다() throws Exception {
     // given
     // when
     assertThatThrownBy(() ->
@@ -173,7 +173,7 @@ class MemberSignupCommandTest {
   }
 
   @Test
-  public void 닉네임_은_자음만_존재하면_안된다() throws Exception {
+  public void nickname_은_자음만_존재하면_안된다() throws Exception {
     // given
     // when
     // then
@@ -187,7 +187,7 @@ class MemberSignupCommandTest {
   }
 
   @Test
-  public void 닉네임_은_모음만_존재하면_안된다() throws Exception {
+  public void nickname_은_모음만_존재하면_안된다() throws Exception {
     // given
     // when
     assertThatThrownBy(() ->
@@ -200,7 +200,7 @@ class MemberSignupCommandTest {
   }
 
   @Test
-  public void 닉네임_은_특수문자를_포함할_수_없다() throws Exception {
+  public void nickname_은_특수문자를_포함할_수_없다() throws Exception {
     // given
     // when
     assertThatThrownBy(() ->
