@@ -1,5 +1,6 @@
-package me.coonect.coonect.common.error;
+package me.coonect.coonect.common.error.exception;
 
+import static jakarta.servlet.http.HttpServletResponse.SC_BAD_REQUEST;
 import static jakarta.servlet.http.HttpServletResponse.SC_CONFLICT;
 import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
@@ -11,6 +12,10 @@ public enum ErrorCode {
 
   // System
   INTERNAL_SERVER_ERROR(SC_INTERNAL_SERVER_ERROR, "S-001", "Internal Server Error"),
+
+  // Common
+  INVALID_TYPE_VALUE(SC_BAD_REQUEST, "C-001", "Invalid Type Value"),
+
 
   // Business
   DUPLICATE(SC_CONFLICT, "B-001", "Duplicated Value"),

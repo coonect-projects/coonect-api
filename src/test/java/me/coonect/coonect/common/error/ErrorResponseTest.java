@@ -2,6 +2,7 @@ package me.coonect.coonect.common.error;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import me.coonect.coonect.common.error.exception.ErrorCode;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

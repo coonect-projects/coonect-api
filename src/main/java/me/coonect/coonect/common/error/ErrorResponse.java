@@ -5,6 +5,7 @@ import java.util.List;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import me.coonect.coonect.common.error.exception.ErrorCode;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

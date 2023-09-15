@@ -1,7 +1,6 @@
 package me.coonect.coonect.common.error.exception;
 
 import lombok.Getter;
-import me.coonect.coonect.common.error.ErrorCode;
 
 @Getter
 public class BusinessException extends RuntimeException {
