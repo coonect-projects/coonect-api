@@ -18,7 +18,7 @@ public class MemberSignupRequest {
   private String nickname;
   private LocalDate birthday;
 
-  public MemberSignupCommand toEntity() {
+  public MemberSignupCommand toCommand() {
     return new MemberSignupCommand(email, password, nickname, birthday);
   }
 

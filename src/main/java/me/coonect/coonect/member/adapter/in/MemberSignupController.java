@@ -17,7 +17,7 @@ public class MemberSignupController {
 
   @PostMapping("/member")
   public ResponseEntity<MemberResponse> signup(@RequestBody MemberSignupRequest request) {
-    Member member = memberSignupUseCase.signup(request.toEntity());
+    Member member = memberSignupUseCase.signup(request.toCommand());
     return ResponseEntity.status(HttpServletResponse.SC_CREATED).body(MemberResponse.from(member));
   }
 }
