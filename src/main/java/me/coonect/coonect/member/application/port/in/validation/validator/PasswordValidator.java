@@ -6,9 +6,10 @@ import me.coonect.coonect.member.application.port.in.validation.Password;
 
 public class PasswordValidator implements ConstraintValidator<Password, String> {
 
+  private static final String REGEX = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,20}$";
+
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
-    String regex = "^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@#$%^&+=!]).{8,20}$";
-    return value.matches(regex);
+    return value.matches(REGEX);
   }
 }

@@ -6,9 +6,10 @@ import me.coonect.coonect.member.application.port.in.validation.Nickname;
 
 public class NicknameValidator implements ConstraintValidator<Nickname, String> {
 
+  private static final String REGEX = "^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$";
+
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
-    String regex = "^(?=.*[a-z0-9가-힣])[a-z0-9가-힣]{2,10}$";
-    return value.matches(regex);
+    return value.matches(REGEX);
   }
 }
