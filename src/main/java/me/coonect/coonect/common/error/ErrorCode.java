@@ -1,11 +1,19 @@
 package me.coonect.coonect.common.error;
 
 import static jakarta.servlet.http.HttpServletResponse.SC_CONFLICT;
+import static jakarta.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static jakarta.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 
+import lombok.Getter;
+
+@Getter
 public enum ErrorCode {
 
-  DUPLICATE(SC_CONFLICT, "B-001", "Duplicate Value"),
+  // System
+  INTERNAL_SERVER_ERROR(SC_INTERNAL_SERVER_ERROR, "S-001", "Internal Server Error"),
+
+  // Business
+  DUPLICATE(SC_CONFLICT, "B-001", "Duplicated Value"),
   NOT_FOUND(SC_NOT_FOUND, "B-002", "Entity Not Found"),
 
   // Member
