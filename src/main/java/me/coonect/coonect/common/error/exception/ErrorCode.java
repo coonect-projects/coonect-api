@@ -25,7 +25,8 @@ public enum ErrorCode {
 
   // Member
   EMAIL_DUPLICATE(SC_CONFLICT, "M-001", "Duplicate Email Address"),
-  NICKNAME_DUPLICATE(SC_CONFLICT, "M-002", "Duplicate Nickname");
+  NICKNAME_DUPLICATE(SC_CONFLICT, "M-002", "Duplicate Nickname"),
+  VERIFIED_EMAIL_NOT_FOUND(SC_NOT_FOUND, "M-003", "Verified Email Not Found");
 
   private final String code;
   private final String message;
