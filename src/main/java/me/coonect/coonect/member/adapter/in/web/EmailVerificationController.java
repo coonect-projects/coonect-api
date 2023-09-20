@@ -2,6 +2,8 @@ package me.coonect.coonect.member.adapter.in.web;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.coonect.coonect.member.adapter.in.web.dto.request.EmailVerificationConfirmRequest;
+import me.coonect.coonect.member.adapter.in.web.dto.request.SendVerificationMailRequest;
 import me.coonect.coonect.member.application.port.in.EmailVerificationConfirmCommand;
 import me.coonect.coonect.member.application.port.in.EmailVerificationUseCase;
 import me.coonect.coonect.member.application.port.in.SendVerificationEmailCommand;

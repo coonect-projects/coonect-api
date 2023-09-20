@@ -1,4 +1,4 @@
-package me.coonect.coonect.member.adapter.in.web;
+package me.coonect.coonect.member.adapter.in.web.dto.request;
 
 import java.time.LocalDate;
 import lombok.AccessLevel;

@@ -2,6 +2,8 @@ package me.coonect.coonect.member.adapter.in.web;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.coonect.coonect.member.adapter.in.web.dto.request.MemberSignupRequest;
+import me.coonect.coonect.member.adapter.in.web.dto.response.MemberResponse;
 import me.coonect.coonect.member.application.domain.model.Member;
 import me.coonect.coonect.member.application.port.in.MemberSignupUseCase;
 import org.springframework.http.ResponseEntity;

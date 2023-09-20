@@ -1,4 +1,4 @@
-package me.coonect.coonect.member.adapter.in.web;
+package me.coonect.coonect.member.adapter.in.web.dto.response;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
