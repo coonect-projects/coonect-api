@@ -2,6 +2,7 @@ package me.coonect.coonect.member.adapter.in.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import me.coonect.coonect.member.adapter.in.web.dto.request.MemberSignupRequest;
 import me.coonect.coonect.member.adapter.in.web.dto.response.MemberResponse;
@@ -24,7 +25,7 @@ class MemberSignupControllerTest {
     MemberSignupController memberSignupController = testContainer.memberSignupController;
     VerifiedEmailRepository verifiedEmailRepository = testContainer.verifiedEmailRepository;
 
-    verifiedEmailRepository.save("123456", "duk9741@gmail.com");
+    verifiedEmailRepository.save("duk9741@gmail.com", "123456", Duration.ZERO);
 
     MemberSignupRequest request = new MemberSignupRequest("duk9741@gmail.com",
         "123456",
