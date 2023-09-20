@@ -4,4 +4,5 @@ public interface EmailVerificationUseCase {
 
   void sendVerificationEmail(SendVerificationEmailCommand command);
 
+  boolean verifyEmail(EmailVerificationConfirmCommand query);
 }

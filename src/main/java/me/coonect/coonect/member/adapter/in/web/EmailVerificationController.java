@@ -2,6 +2,7 @@ package me.coonect.coonect.member.adapter.in.web;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import me.coonect.coonect.member.application.port.in.EmailVerificationConfirmCommand;
 import me.coonect.coonect.member.application.port.in.EmailVerificationUseCase;
 import me.coonect.coonect.member.application.port.in.SendVerificationEmailCommand;
 import org.springframework.http.ResponseEntity;
@@ -23,4 +24,16 @@ public class EmailVerificationController {
     return ResponseEntity.status(HttpServletResponse.SC_CREATED).build();
   }
 
+  @PostMapping("/member/email/verification/confirm")
+  public ResponseEntity<Void> confirmEmailVerification(
+      @RequestBody EmailVerificationConfirmRequest request) {
+
+    EmailVerificationConfirmCommand command = request.toCommand();
+
+    if (emailVerificationUseCase.verifyEmail(command)) {
+      return ResponseEntity.ok().build();
+    }
+
+    return ResponseEntity.status(HttpServletResponse.SC_NOT_FOUND).build();
+  }
 }

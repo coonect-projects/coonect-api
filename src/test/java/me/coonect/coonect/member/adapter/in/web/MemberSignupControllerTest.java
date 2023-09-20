@@ -3,9 +3,6 @@ package me.coonect.coonect.member.adapter.in.web;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.time.LocalDate;
-import me.coonect.coonect.member.adapter.in.web.MemberResponse;
-import me.coonect.coonect.member.adapter.in.web.MemberSignupController;
-import me.coonect.coonect.member.adapter.in.web.MemberSignupRequest;
 import me.coonect.coonect.mock.TestContainer;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;

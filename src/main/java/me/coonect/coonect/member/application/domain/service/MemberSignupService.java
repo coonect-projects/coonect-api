@@ -28,6 +28,8 @@ public class MemberSignupService implements MemberSignupUseCase {
       throw new NicknameDuplicationException(command.getNickname());
     }
 
+    // TODO: VerifiedEmailRepository 에 코드 및 이메일 존재 확인 후 가입 진행
+
     return memberRepository.save(command.toMember());
   }
 }
