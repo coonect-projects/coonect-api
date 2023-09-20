@@ -2,7 +2,7 @@ package me.coonect.coonect.member.adapter.in.web.dto.request;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-import me.coonect.coonect.member.application.port.in.SendVerificationEmailCommand;
+import me.coonect.coonect.member.application.port.in.model.SendVerificationEmailCommand;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;

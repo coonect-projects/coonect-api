@@ -1,7 +1,7 @@
 package me.coonect.coonect.member.application.domain.service;
 
 import lombok.RequiredArgsConstructor;
-import me.coonect.coonect.member.application.port.in.NicknameValidationQuery;
+import me.coonect.coonect.member.application.port.in.model.NicknameValidationQuery;
 import me.coonect.coonect.member.application.port.in.NicknameValidationUseCase;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.stereotype.Service;

@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.member.application.domain.exception.EmailDuplicationException;
 import me.coonect.coonect.member.application.domain.exception.NicknameDuplicationException;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.in.MemberSignupCommand;
+import me.coonect.coonect.member.application.port.in.model.MemberSignupCommand;
 import me.coonect.coonect.member.application.port.in.MemberSignupUseCase;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.stereotype.Service;

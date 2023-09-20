@@ -1,4 +1,4 @@
-package me.coonect.coonect.member.application.port.in;
+package me.coonect.coonect.member.application.port.in.model;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -8,8 +8,8 @@ import java.time.LocalDate;
 import lombok.Getter;
 import me.coonect.coonect.common.validation.Validator;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.in.validation.Nickname;
-import me.coonect.coonect.member.application.port.in.validation.Password;
+import me.coonect.coonect.member.application.port.in.model.validation.Nickname;
+import me.coonect.coonect.member.application.port.in.model.validation.Password;
 
 @Getter
 public class MemberSignupCommand {

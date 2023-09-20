@@ -2,7 +2,7 @@ package me.coonect.coonect.member.adapter.in.web;
 
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
-import me.coonect.coonect.member.application.port.in.NicknameValidationQuery;
+import me.coonect.coonect.member.application.port.in.model.NicknameValidationQuery;
 import me.coonect.coonect.member.application.port.in.NicknameValidationUseCase;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

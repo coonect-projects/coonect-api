@@ -1,8 +1,8 @@
-package me.coonect.coonect.member.application.port.in;
+package me.coonect.coonect.member.application.port.in.model;
 
 import lombok.Getter;
 import me.coonect.coonect.common.validation.Validator;
-import me.coonect.coonect.member.application.port.in.validation.Nickname;
+import me.coonect.coonect.member.application.port.in.model.validation.Nickname;
 
 @Getter
 public class NicknameValidationQuery {

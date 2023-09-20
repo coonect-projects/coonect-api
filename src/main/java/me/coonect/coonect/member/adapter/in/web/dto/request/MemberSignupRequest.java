@@ -5,7 +5,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.coonect.coonect.member.application.port.in.MemberSignupCommand;
+import me.coonect.coonect.member.application.port.in.model.MemberSignupCommand;
 
 
 @Getter

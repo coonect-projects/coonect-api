@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import me.coonect.coonect.member.application.domain.exception.EmailDuplicationException;
 import me.coonect.coonect.member.application.domain.exception.NicknameDuplicationException;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.in.MemberSignupCommand;
+import me.coonect.coonect.member.application.port.in.model.MemberSignupCommand;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import me.coonect.coonect.mock.FakeMemberRepository;
 import org.junit.jupiter.api.BeforeEach;

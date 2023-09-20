@@ -1,8 +1,8 @@
-package me.coonect.coonect.member.application.port.in.validation.validator;
+package me.coonect.coonect.member.application.port.in.model.validation.validator;
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
-import me.coonect.coonect.member.application.port.in.validation.Nickname;
+import me.coonect.coonect.member.application.port.in.model.validation.Nickname;
 
 public class NicknameValidator implements ConstraintValidator<Nickname, String> {
 

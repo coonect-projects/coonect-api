@@ -4,7 +4,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import me.coonect.coonect.member.application.port.in.EmailVerificationConfirmCommand;
+import me.coonect.coonect.member.application.port.in.model.EmailVerificationConfirmCommand;
 
 @Getter
 @AllArgsConstructor
