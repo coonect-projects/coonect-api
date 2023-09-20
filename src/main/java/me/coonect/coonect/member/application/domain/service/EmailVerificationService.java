@@ -49,9 +49,9 @@ public class EmailVerificationService implements EmailVerificationUseCase {
   }
 
   @Override
-  public boolean verifyEmail(EmailVerificationConfirmCommand query) {
-    String email = query.getEmail();
-    String code = query.getCode();
+  public boolean verifyEmail(EmailVerificationConfirmCommand command) {
+    String email = command.getEmail();
+    String code = command.getCode();
 
     checkEmailDuplicated(email);
 
