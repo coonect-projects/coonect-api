@@ -1,6 +1,7 @@
 package me.coonect.coonect.mock;
 
 import lombok.Builder;
+import me.coonect.coonect.member.adapter.in.web.EmailVerificationController;
 import me.coonect.coonect.member.adapter.in.web.MemberSignupController;
 import me.coonect.coonect.member.adapter.in.web.NicknameValidationController;
 import me.coonect.coonect.member.application.domain.service.EmailVerificationService;
@@ -30,6 +31,7 @@ public class TestContainer {
 
   public MemberSignupController memberSignupController;
   public NicknameValidationController nicknameValidationController;
+  public EmailVerificationController emailVerificationController;
 
   @Builder
   public TestContainer(EmailVerificationCodeGenerator codeGenerator, String exceptionEmail) {
@@ -49,5 +51,6 @@ public class TestContainer {
 
     memberSignupController = new MemberSignupController(memberSignupUseCase);
     nicknameValidationController = new NicknameValidationController(nicknameValidationUseCase);
+    emailVerificationController = new EmailVerificationController(emailVerificationUseCase);
   }
 }
