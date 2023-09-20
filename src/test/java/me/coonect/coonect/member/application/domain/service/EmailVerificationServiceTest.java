@@ -138,8 +138,8 @@ class EmailVerificationServiceTest {
     // then
     assertThat(result).isTrue();
     assertThat(emailVerificationCodeRepository.has(email)).isFalse();
-    assertThat(verifiedEmailRepository.has(code)).isTrue();
-    assertThat(verifiedEmailRepository.get(code)).isEqualTo(email);
+    assertThat(verifiedEmailRepository.has(email)).isTrue();
+    assertThat(verifiedEmailRepository.get(email)).isEqualTo(code);
 
   }
 
@@ -158,6 +158,6 @@ class EmailVerificationServiceTest {
 
     // then
     assertThat(result).isFalse();
-    assertThat(verifiedEmailRepository.has(code)).isFalse();
+    assertThat(verifiedEmailRepository.has(email)).isFalse();
   }
 }

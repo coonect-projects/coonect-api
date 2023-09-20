@@ -2,9 +2,11 @@ package me.coonect.coonect.member.adapter.in.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import me.coonect.coonect.member.adapter.in.web.dto.request.MemberSignupRequest;
 import me.coonect.coonect.member.adapter.in.web.dto.response.MemberResponse;
+import me.coonect.coonect.member.application.port.out.persistence.VerifiedEmailRepository;
 import me.coonect.coonect.mock.TestContainer;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
@@ -21,8 +23,12 @@ class MemberSignupControllerTest {
     TestContainer testContainer = TestContainer.builder().build();
 
     MemberSignupController memberSignupController = testContainer.memberSignupController;
+    VerifiedEmailRepository verifiedEmailRepository = testContainer.verifiedEmailRepository;
+
+    verifiedEmailRepository.save("duk9741@gmail.com", "123456", Duration.ZERO);
 
     MemberSignupRequest request = new MemberSignupRequest("duk9741@gmail.com",
+        "123456",
         "!@#qwe123",
         "닉네임",
         LocalDate.of(1995, 1, 10));

@@ -7,7 +7,6 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import jakarta.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.in.model.MemberSignupCommand;
 import org.junit.jupiter.api.DisplayNameGeneration;
 import org.junit.jupiter.api.DisplayNameGenerator;
 import org.junit.jupiter.api.Test;
@@ -21,7 +20,7 @@ class MemberSignupCommandTest {
     // when
     Throwable throwable = catchThrowable(() -> {
       new MemberSignupCommand("duk9741@gmail.com",
-          "@12cdefghijkl",
+          "123456", "@12cdefghijkl",
           "dukcode",
           LocalDate.of(1995, 1, 10));
     });
@@ -36,7 +35,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("xxxxxxxxxxxxx",
-            "1a!4567890",
+            "123456", "1a!4567890",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -49,7 +48,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("      ",
-            "1a!4567890",
+            "123456", "1a!4567890",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -62,7 +61,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand(null,
-            "1a!4567890",
+            "123456", "1a!4567890",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -75,7 +74,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "1a!4567",
+            "123456", "1a!4567",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -88,7 +87,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "1a!456789012345678901",
+            "123456", "1a!456789012345678901",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -101,7 +100,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "!234567890",
+            "123456", "!234567890",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -114,7 +113,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "!bcdefghijkl",
+            "123456", "!bcdefghijkl",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -127,7 +126,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "12cdefghijkl",
+            "123456", "12cdefghijkl",
             "dukcode",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -140,7 +139,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "12cdefghijkl",
+            "123456", "12cdefghijkl",
             "d",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -153,7 +152,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "12cdefghijkl",
+            "123456", "12cdefghijkl",
             "12345678901",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -166,7 +165,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "a   a",
+            "123456", "a   a",
             "12345678901",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -180,7 +179,7 @@ class MemberSignupCommandTest {
     // then
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "@12cdefghijkl",
+            "123456", "@12cdefghijkl",
             "김ㅁㅁ",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -193,7 +192,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "@12cdefghijkl",
+            "123456", "@12cdefghijkl",
             "김ㅏㅏ",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -206,7 +205,7 @@ class MemberSignupCommandTest {
     // when
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "@12cdefghijkl",
+            "123456", "@12cdefghijkl",
             "김@@#",
             LocalDate.of(1995, 1, 10))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -220,7 +219,7 @@ class MemberSignupCommandTest {
     // then
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "@12cdefghijkl",
+            "123456", "@12cdefghijkl",
             "dukcode",
             null)
     ).isInstanceOf(ConstraintViolationException.class)
@@ -234,7 +233,7 @@ class MemberSignupCommandTest {
     // then
     assertThatThrownBy(() ->
         new MemberSignupCommand("duk9741@gmail.com",
-            "@12cdefghijkl",
+            "123456", "@12cdefghijkl",
             "dukcode",
             LocalDate.now().plusDays(1))
     ).isInstanceOf(ConstraintViolationException.class)
@@ -247,7 +246,7 @@ class MemberSignupCommandTest {
     MemberSignupCommand memberSignupCommand
 
         = new MemberSignupCommand("duk9741@gmail.com",
-        "@12cdefghijkl",
+        "123456", "@12cdefghijkl",
         "dukcode",
         LocalDate.of(1995, 1, 10));
     // when

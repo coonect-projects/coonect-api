@@ -18,6 +18,8 @@ public class MemberSignupCommand {
   @NotBlank(message = "email은 공백일 수 없습니다.")
   private final String email;
 
+  private final String emailVerificationCode;
+
   @Password
   private final String password;
 
@@ -28,8 +30,10 @@ public class MemberSignupCommand {
   @NotNull(message = "birthday는 null일 수 없습니다.")
   private final LocalDate birthday;
 
-  public MemberSignupCommand(String email, String password, String nickname, LocalDate birthday) {
+  public MemberSignupCommand(String email, String emailVerificationCode, String password,
+      String nickname, LocalDate birthday) {
     this.email = email;
+    this.emailVerificationCode = emailVerificationCode;
     this.password = password;
     this.nickname = nickname;
     this.birthday = birthday;
