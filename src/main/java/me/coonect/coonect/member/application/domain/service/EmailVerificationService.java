@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.common.error.exception.BusinessException;
 import me.coonect.coonect.common.error.exception.ErrorCode;
 import me.coonect.coonect.member.application.domain.exception.EmailDuplicationException;
-import me.coonect.coonect.member.application.port.in.model.EmailVerificationConfirmCommand;
 import me.coonect.coonect.member.application.port.in.EmailVerificationUseCase;
+import me.coonect.coonect.member.application.port.in.model.EmailVerificationConfirmCommand;
 import me.coonect.coonect.member.application.port.in.model.SendVerificationEmailCommand;
 import me.coonect.coonect.member.application.port.out.infrastructure.EmailVerificationCodeGenerator;
 import me.coonect.coonect.member.application.port.out.infrastructure.EmailVerificationMailSender;
@@ -30,6 +30,9 @@ public class EmailVerificationService implements EmailVerificationUseCase {
   private final VerifiedEmailRepository verifiedEmailRepository;
   @Value("${coonect.email.verification.expire-minute}")
   private int emailVerificationExpireMinute;
+
+  @Value("${coonect.email.verified.expire-minute}")
+  private int verifiedEmailExpireMinute;
 
   @Override
   public void sendVerificationEmail(SendVerificationEmailCommand command) {
@@ -56,7 +59,7 @@ public class EmailVerificationService implements EmailVerificationUseCase {
     checkEmailDuplicated(email);
 
     if (isVerify(email, code)) {
-      verifiedEmailRepository.save(code, email);
+      verifiedEmailRepository.save(email, code, Duration.ofMinutes(verifiedEmailExpireMinute));
       emailVerificationCodeRepository.remove(email);
       return true;
     }

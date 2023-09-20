@@ -40,10 +40,11 @@ public class MemberSignupService implements MemberSignupUseCase {
       throw new NotFoundException(ErrorCode.VERIFIED_EMAIL_NOT_FOUND);
     }
 
+    verifiedEmailRepository.remove(email);
     return memberRepository.save(command.toMember());
   }
 
   private boolean verifyCode(String email, String code) {
-    return verifiedEmailRepository.has(code) && verifiedEmailRepository.get(code).equals(email);
+    return verifiedEmailRepository.has(email) && verifiedEmailRepository.get(email).equals(code);
   }
 }

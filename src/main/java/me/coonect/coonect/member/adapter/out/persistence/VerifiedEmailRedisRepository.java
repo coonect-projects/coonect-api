@@ -1,5 +1,6 @@
 package me.coonect.coonect.member.adapter.out.persistence;
 
+import java.time.Duration;
 import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.member.application.port.out.persistence.VerifiedEmailRepository;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -15,24 +16,24 @@ public class VerifiedEmailRedisRepository implements VerifiedEmailRepository {
   private final StringRedisTemplate redisTemplate;
 
   @Override
-  public void save(String code, String email) {
+  public void save(String email, String code, Duration expireDuration) {
     ValueOperations<String, String> ops = redisTemplate.opsForValue();
-    ops.set(KEY_PREFIX + code, email);
+    ops.set(KEY_PREFIX + email, code);
   }
 
   @Override
-  public String get(String code) {
+  public String get(String email) {
     ValueOperations<String, String> ops = redisTemplate.opsForValue();
-    return ops.get(KEY_PREFIX + code);
+    return ops.get(KEY_PREFIX + email);
   }
 
   @Override
-  public void remove(String code) {
-    redisTemplate.delete(KEY_PREFIX + code);
+  public void remove(String email) {
+    redisTemplate.delete(KEY_PREFIX + email);
   }
 
   @Override
-  public boolean has(String code) {
-    return redisTemplate.hasKey(KEY_PREFIX + code);
+  public boolean has(String email) {
+    return redisTemplate.hasKey(KEY_PREFIX + email);
   }
 }
