@@ -12,6 +12,7 @@ public class EmailVerificationConfirmCommand {
   @NotBlank
   String email;
 
+  @NotBlank
   String code;
 
   public EmailVerificationConfirmCommand(String email, String code) {
