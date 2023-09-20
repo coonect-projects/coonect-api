@@ -17,7 +17,9 @@ public class SecurityConfiguration {
   private static final RequestMatcher[] ALLOWED_REQUESTS = {
       new AntPathRequestMatcher("/error", "GET"),
       new AntPathRequestMatcher("/member", "POST"),
-      new AntPathRequestMatcher("/member/nickname/valid", "GET")
+      new AntPathRequestMatcher("/member/nickname/valid", "GET"),
+      new AntPathRequestMatcher("/member/email/verification/request", "POST"),
+      new AntPathRequestMatcher("/member/email/verification/confirm", "POST")
   };
 
   @Bean

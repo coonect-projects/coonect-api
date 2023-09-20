@@ -21,6 +21,7 @@ public enum ErrorCode {
   // Business
   DUPLICATE(SC_CONFLICT, "B-001", "Duplicated Value"),
   NOT_FOUND(SC_NOT_FOUND, "B-002", "Entity Not Found"),
+  MAIL_DELIVERY_ERROR(SC_BAD_REQUEST, "B-003", "Mail Delivery Error"),
 
   // Member
   EMAIL_DUPLICATE(SC_CONFLICT, "M-001", "Duplicate Email Address"),

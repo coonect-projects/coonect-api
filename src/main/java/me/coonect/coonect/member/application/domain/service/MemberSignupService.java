@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.member.application.domain.exception.EmailDuplicationException;
 import me.coonect.coonect.member.application.domain.exception.NicknameDuplicationException;
 import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.in.MemberSignupCommand;
+import me.coonect.coonect.member.application.port.in.model.MemberSignupCommand;
 import me.coonect.coonect.member.application.port.in.MemberSignupUseCase;
-import me.coonect.coonect.member.application.port.out.MemberRepository;
+import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +27,8 @@ public class MemberSignupService implements MemberSignupUseCase {
     if (memberRepository.existsByNickname(command.getNickname())) {
       throw new NicknameDuplicationException(command.getNickname());
     }
+
+    // TODO: VerifiedEmailRepository 에 코드 및 이메일 존재 확인 후 가입 진행
 
     return memberRepository.save(command.toMember());
   }
