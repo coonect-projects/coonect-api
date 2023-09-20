@@ -15,6 +15,7 @@ class MemberSignupRequestTest {
   public void MemberSignupRequest_는_MemberSignupCommand_로_변환될_수_있다() throws Exception {
     // given
     MemberSignupRequest request = new MemberSignupRequest("duk9741@gmail.com",
+        "123456",
         "!@#qwe123",
         "닉네임",
         LocalDate.of(1995, 1, 10));

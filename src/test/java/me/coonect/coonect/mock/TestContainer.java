@@ -41,7 +41,7 @@ public class TestContainer {
     emailVerificationCodeRepository = new FakeEmailVerificationCodeRepository();
     verifiedEmailRepository = new FakeVerifiedEmailRepository();
 
-    memberSignupUseCase = new MemberSignupService(memberRepository);
+    memberSignupUseCase = new MemberSignupService(memberRepository, verifiedEmailRepository);
     nicknameValidationUseCase = new NicknameValidationService(memberRepository);
     emailVerificationUseCase = new EmailVerificationService(memberRepository,
         emailVerificationMailSender,
