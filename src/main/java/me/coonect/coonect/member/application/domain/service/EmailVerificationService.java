@@ -43,6 +43,7 @@ public class EmailVerificationService implements EmailVerificationUseCase {
     try {
       mailSender.send(email, code);
     } catch (MessagingException e) {
+      emailVerificationCodeRepository.remove(email);
       throw new BusinessException("mail delivery error", ErrorCode.MAIL_DELIVERY_ERROR);
     }
   }
