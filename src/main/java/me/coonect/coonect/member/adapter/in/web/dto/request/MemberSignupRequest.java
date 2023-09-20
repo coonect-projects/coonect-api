@@ -14,12 +14,14 @@ import me.coonect.coonect.member.application.port.in.model.MemberSignupCommand;
 public class MemberSignupRequest {
 
   private String email;
+
+  private String emailVerificationCode;
   private String password;
   private String nickname;
   private LocalDate birthday;
 
   public MemberSignupCommand toCommand() {
-    return new MemberSignupCommand(email, password, nickname, birthday);
+    return new MemberSignupCommand(email, emailVerificationCode, password, nickname, birthday);
   }
 
 }
