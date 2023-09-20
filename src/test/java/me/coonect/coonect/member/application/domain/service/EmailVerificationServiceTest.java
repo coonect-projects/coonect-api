@@ -3,10 +3,12 @@ package me.coonect.coonect.member.application.domain.service;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import me.coonect.coonect.common.error.exception.BusinessException;
 import me.coonect.coonect.member.application.domain.exception.EmailDuplicationException;
 import me.coonect.coonect.member.application.domain.model.Member;
+import me.coonect.coonect.member.application.port.in.EmailVerificationConfirmCommand;
 import me.coonect.coonect.member.application.port.in.SendVerificationEmailCommand;
 import me.coonect.coonect.member.application.port.out.infrastructure.EmailVerificationCodeGenerator;
 import me.coonect.coonect.member.application.port.out.persistence.EmailVerificationCodeRepository;
@@ -103,5 +105,59 @@ class EmailVerificationServiceTest {
     assertThat(emailVerificationMailSender.code).isNull();
     assertThat(emailVerificationCodeRepository.has(exceptionEmail)).isFalse();
     assertThat(emailVerificationCodeRepository.get(exceptionEmail)).isNull();
+  }
+
+  @Test
+  public void 요청된_인증_번호가_저장된_인증_번호와_일치하면_인증에_성공한다() throws Exception {
+    // given
+    String email = "duk9741@gmail.com";
+    String code = "123456";
+    emailVerificationCodeRepository.save(email, code, Duration.ZERO);
+
+    // when
+    EmailVerificationConfirmCommand command = new EmailVerificationConfirmCommand(
+        email, code);
+    boolean result = emailVerificationService.verifyEmail(command);
+
+    // then
+    assertThat(result).isTrue();
+  }
+
+  @Test
+  public void 인증_번호_인증이_성공하면_저장된_인증번호를_삭제하고_인증된_이메일로_저장한다() throws Exception {
+    // given
+    String email = "duk9741@gmail.com";
+    String code = "123456";
+    emailVerificationCodeRepository.save(email, code, Duration.ZERO);
+
+    // when
+    EmailVerificationConfirmCommand command = new EmailVerificationConfirmCommand(
+        email, code);
+    boolean result = emailVerificationService.verifyEmail(command);
+
+    // then
+    assertThat(result).isTrue();
+    assertThat(emailVerificationCodeRepository.has(email)).isFalse();
+    assertThat(verifiedEmailRepository.has(code)).isTrue();
+    assertThat(verifiedEmailRepository.get(code)).isEqualTo(email);
+
+  }
+
+  @Test
+  public void 인증_번호가_일치_하지_않으면_인증에_실패한다() throws Exception {
+    // given
+    String email = "duk9741@gmail.com";
+    String code = "123456";
+    String notMatchedCode = "999999";
+    emailVerificationCodeRepository.save(email, code, Duration.ZERO);
+
+    // when
+    EmailVerificationConfirmCommand command = new EmailVerificationConfirmCommand(
+        email, notMatchedCode);
+    boolean result = emailVerificationService.verifyEmail(command);
+
+    // then
+    assertThat(result).isFalse();
+    assertThat(verifiedEmailRepository.has(code)).isFalse();
   }
 }
