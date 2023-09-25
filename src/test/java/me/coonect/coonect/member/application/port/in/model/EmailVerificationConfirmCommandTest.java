@@ -78,4 +78,26 @@ class EmailVerificationConfirmCommandTest {
     ).isInstanceOf(ConstraintViolationException.class)
         .hasMessageContaining("code");
   }
+
+  @Test
+  public void code_는_6자리_숫자여야_한다() throws Exception {
+    // given
+    // when
+    // then
+    assertThatThrownBy(() ->
+        new EmailVerificationConfirmCommand("duk9741@gmail.com", "123A")
+    ).isInstanceOf(ConstraintViolationException.class)
+        .hasMessageContaining("code");
+  }
+
+  @Test
+  public void code_는_6자리를_넘을_수_없다() throws Exception {
+    // given
+    // when
+    // then
+    assertThatThrownBy(() ->
+        new EmailVerificationConfirmCommand("duk9741@gmail.com", "1234567")
+    ).isInstanceOf(ConstraintViolationException.class)
+        .hasMessageContaining("code");
+  }
 }
