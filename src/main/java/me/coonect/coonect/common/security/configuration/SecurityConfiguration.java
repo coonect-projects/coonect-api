@@ -2,8 +2,10 @@ package me.coonect.coonect.common.security.configuration;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
@@ -33,6 +35,13 @@ public class SecurityConfiguration {
         .sessionManagement(AbstractHttpConfigurer::disable);
 
     return http.build();
+  }
+
+  @Profile("!prod")
+  @Bean
+  public WebSecurityCustomizer configureApiDocsEnable() {
+    return web -> web.ignoring()
+        .requestMatchers("/docs/**");
   }
 
 }
