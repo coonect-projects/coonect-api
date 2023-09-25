@@ -13,6 +13,7 @@ java {
 }
 
 configurations {
+    asciidoctorExt
     compileOnly {
         extendsFrom annotationProcessor
     }
@@ -38,6 +39,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'
     runtimeOnly 'com.mysql:mysql-connector-j'
@@ -58,9 +60,26 @@ dependencyManagement {
 tasks.named('test') {
     outputs.dir snippetsDir
     useJUnitPlatform()
+    finalizedBy asciidoctor
 }
 
 tasks.named('asciidoctor') {
-    inputs.dir snippetsDir
     dependsOn test
+    configurations 'asciidoctorExt'
+    inputs.dir snippetsDir
+    finalizedBy copyDocument
+    doFirst {
+        delete file('src/main/resources/static/docs')
+    }
+
+}
+
+tasks.register('copyDocument', Copy) {
+    dependsOn asciidoctor
+    from file('build/docs/asciidoc')
+    into file('src/main/resources/static/docs')
+}
+
+bootJar {
+    dependsOn asciidoctor
 }
