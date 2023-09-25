@@ -241,6 +241,20 @@ class MemberSignupCommandTest {
   }
 
   @Test
+  public void emailVerificationCode_에_유효성_체크가_적용된다() throws Exception {
+    // given
+    // when
+    // then
+    assertThatThrownBy(() ->
+        new MemberSignupCommand("duk9741@gmail.com",
+            "123A", "@12cdefghijkl",
+            "dukcode",
+            LocalDate.of(1995, 1, 10))
+    ).isInstanceOf(ConstraintViolationException.class)
+        .hasMessageContaining("emailVerificationCode");
+  }
+
+  @Test
   public void MemberSignupCommand_를_Member_로_변환할_수_있다() throws Exception {
     // given
     MemberSignupCommand memberSignupCommand
@@ -258,6 +272,5 @@ class MemberSignupCommandTest {
     assertThat(member.getNickname()).isEqualTo("dukcode");
     assertThat(member.getEncodedPassword()).isNotEqualTo("@12cdefghijkl");
     assertThat(member.getBirthday()).isEqualTo(LocalDate.of(1995, 1, 10));
-
   }
 }

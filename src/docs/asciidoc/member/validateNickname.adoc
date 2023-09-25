@@ -1,0 +1,27 @@
+이미 가입된 닉네임인지 검증을 요청합니다.
+
+=== 요청 쿼리 파라미터
+
+include::{snippets}/nickname-validation-controller-test/validate-nickname_200/query-parameters.adoc[]
+
+=== 요청
+
+include::{snippets}/nickname-validation-controller-test/validate-nickname_200/http-request.adoc[]
+
+=== 응답
+
+==== 사용 가능한 닉네임일 시 응답
+
+include::{snippets}/email-verification-controller-test/send-verification-mail_201/http-response.adoc[]
+
+==== 중복된 닉네임으로 요청 시 에러 응답
+
+이미 가입된 닉네임으로 가입할 수 없습니다.
+
+include::{snippets}/nickname-validation-controller-test/validate-nickname_409/http-response.adoc[]
+
+==== 유효성 조건을 통과하지 못한 닉네임으로 요청 시
+
+닉네임 constraints를 만족해야 합니다.
+
+include::{snippets}/nickname-validation-controller-test/validate-nickname_400_validation/http-response.adoc[]

@@ -1,0 +1,28 @@
+회원 가입을 위한 이메일 인증 메일 전송을 요청합니다.
+
+=== 요청 필드
+
+include::{snippets}/email-verification-controller-test/send-verification-mail_201/request-fields.adoc[]
+
+=== 요청
+
+include::{snippets}/email-verification-controller-test/send-verification-mail_201/http-request.adoc[]
+
+=== 응답
+
+==== 인증 메일 전송 성공 시 응답
+
+include::{snippets}/email-verification-controller-test/send-verification-mail_201/http-response.adoc[]
+
+==== 중복된 이메일로 요청 시 에러 응답
+
+이미 가입된 이메일로 가입할 수 없습니다.
+
+include::{snippets}/email-verification-controller-test/send-verification-mail_409/http-response.adoc[]
+
+==== 메일 전송 실패 시 에러 응답
+
+존재하지 않는 메일로 메일을 전송할 수 없습니다.
+
+include::{snippets}/email-verification-controller-test/send-verification-mail_400/http-response.adoc[]
+

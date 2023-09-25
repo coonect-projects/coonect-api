@@ -1,0 +1,43 @@
+회원 정보를 통해 회원 가입을 진행합니다.
+
+=== 요청 필드
+
+include::{snippets}/member-signup-controller-test/signup_201/request-fields.adoc[]
+
+=== 요청
+
+include::{snippets}/member-signup-controller-test/signup_201/http-request.adoc[]
+
+=== 응답 필드
+
+include::{snippets}/member-signup-controller-test/signup_201/response-fields.adoc[]
+
+=== 응답
+
+==== 회원 가입 성공 시 응답
+
+include::{snippets}/member-signup-controller-test/signup_201/http-response.adoc[]
+
+==== 입력 유효성 체크 실패 시 응답
+
+요청 필드가 제약 조건을 지켜야 합니다.
+
+include::{snippets}/member-signup-controller-test/signup_400_invalid_input/http-response.adoc[]
+
+==== 이메일 미인증 시 응답
+
+이메일 인증을 받은 후에 회원 가입 요청을 진행해야 합니다. 요청 확인 후 회원 가입 유효 기간은 60분 입니다.
+
+include::{snippets}/member-signup-controller-test/signup_400_verified_email_not_found/http-response.adoc[]
+
+==== 이메일 중복 시 응답
+
+중복된 이메일로 가입할 수 없습니다.
+
+include::{snippets}/member-signup-controller-test/signup_409_email/http-response.adoc[]
+
+==== 닉네임 중복 시 응답
+
+중복된 닉네임으로 가입할 수 없습니다.
+
+include::{snippets}/member-signup-controller-test/signup_409_nickname/http-response.adoc[]

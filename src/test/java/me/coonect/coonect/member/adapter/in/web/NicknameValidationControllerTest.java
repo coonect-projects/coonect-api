@@ -1,68 +1,68 @@
 package me.coonect.coonect.member.adapter.in.web;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.verify;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.LocalDate;
-import me.coonect.coonect.member.adapter.in.web.NicknameValidationController;
-import me.coonect.coonect.member.application.domain.model.Member;
-import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
-import me.coonect.coonect.mock.TestContainer;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import me.coonect.coonect.global.RestDocsTestSupport;
+import me.coonect.coonect.member.application.port.in.NicknameValidationUseCase;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class NicknameValidationControllerTest {
+@WebMvcTest(NicknameValidationController.class)
+class NicknameValidationControllerTest extends RestDocsTestSupport {
 
-  private NicknameValidationController nicknameValidationController;
-  private MemberRepository memberRepository;
+  @MockBean
+  private NicknameValidationUseCase nicknameValidationUseCase;
 
   @Test
-  public void 닉네임이_겹치면_409_응답을_내린다() throws Exception {
+  public void validateNickname_200() throws Exception {
     // given
-    TestContainer testContainer = TestContainer.builder().build();
-
-    nicknameValidationController = testContainer.nicknameValidationController;
-    memberRepository = testContainer.memberRepository;
-
-    memberRepository.save(Member.withoutId("duk9741@gmail.com",
-        "@12cdefghijkl",
-        "dukcode",
-        LocalDate.of(1995, 1, 10)));
-
-    String nickname = "dukcode";
+    given(nicknameValidationUseCase.isNicknameDuplicated(any()))
+        .willReturn(false);
 
     // when
-    ResponseEntity<Void> result = nicknameValidationController.validNickname(nickname);
+    mockMvc.perform(get("/member/nickname/valid").queryParam("nickname", "dukcode"))
+        .andExpect(status().isOk())
+        .andDo(restDocs.document(
+            queryParameters(
+                parameterWithName("nickname").description("유저 닉네임")
+                    .attributes(constraints("8자 이상 20자 이하 최소 1글자 이상의 영어, 숫자, 특수문자 포함"))
+            )
+        ));
 
     // then
-    assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(409));
-    assertThat(result.getBody()).isNull();
+    verify(nicknameValidationUseCase).isNicknameDuplicated(any());
   }
 
   @Test
-  public void 닉네임이_겹치지_않으면_200_응답을_내린다() throws Exception {
+  public void validateNickname_400_validation() throws Exception {
     // given
-    TestContainer testContainer = TestContainer.builder().build();
+    // when
+    // then
+    mockMvc.perform(get("/member/nickname/valid").queryParam("nickname", "ㄱ"))
+        .andExpect(status().isBadRequest());
 
-    nicknameValidationController = testContainer.nicknameValidationController;
-    memberRepository = testContainer.memberRepository;
+  }
 
-    memberRepository.save(Member.withoutId("duk9741@gmail.com",
-        "@12cdefghijkl",
-        "dukcode",
-        LocalDate.of(1995, 1, 10)));
-
-    String nickname = "newname";
+  @Test
+  public void validateNickname_409() throws Exception {
+    // given
+    given(nicknameValidationUseCase.isNicknameDuplicated(any()))
+        .willReturn(true);
 
     // when
-    ResponseEntity<Void> result = nicknameValidationController.validNickname(nickname);
+    mockMvc.perform(get("/member/nickname/valid").queryParam("nickname", "dukcode"))
+        .andExpect(status().isConflict());
 
     // then
-    assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
-    assertThat(result.getBody()).isNull();
+    verify(nicknameValidationUseCase).isNicknameDuplicated(any());
   }
+
 
 }

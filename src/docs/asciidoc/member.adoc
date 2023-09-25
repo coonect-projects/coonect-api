@@ -1,0 +1,23 @@
+= Member API Document
+:doctype: book
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 2
+
+== 인증 메일 전송 요청
+
+include::{docdir}/member/sendVerificationMail.adoc[]
+
+== 인증 번호 확인 요청
+
+include::{docdir}/member/confirmEmailVerification.adoc[]
+
+== 닉네임 중복 검사
+
+include::{docdir}/member/validateNickname.adoc[]
+
+== 회원 가입
+
+include::{docdir}/member/signup.adoc[]
+

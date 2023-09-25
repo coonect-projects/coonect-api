@@ -8,6 +8,7 @@ import java.time.LocalDate;
 import lombok.Getter;
 import me.coonect.coonect.common.validation.Validator;
 import me.coonect.coonect.member.application.domain.model.Member;
+import me.coonect.coonect.member.application.port.in.model.validation.EmailVerificationCode;
 import me.coonect.coonect.member.application.port.in.model.validation.Nickname;
 import me.coonect.coonect.member.application.port.in.model.validation.Password;
 
@@ -18,6 +19,7 @@ public class MemberSignupCommand {
   @NotBlank(message = "email은 공백일 수 없습니다.")
   private final String email;
 
+  @EmailVerificationCode
   private final String emailVerificationCode;
 
   @Password
