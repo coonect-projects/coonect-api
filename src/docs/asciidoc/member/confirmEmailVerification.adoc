@@ -1,0 +1,27 @@
+사용자가 이메일로 전송받은 인증 번호를 확인 요청합니다.
+
+=== 요청 필드
+
+include::{snippets}/email-verification-controller-test/confirm-email-verification_200/request-fields.adoc[]
+
+=== 요청
+
+include::{snippets}/email-verification-controller-test/confirm-email-verification_200/http-request.adoc[]
+
+=== 응답
+
+==== 인증번호 확인 성공 시 응답
+
+include::{snippets}/email-verification-controller-test/confirm-email-verification_200/http-response.adoc[]
+
+==== 인증 번호 확인 실패 시 응답
+
+include::{snippets}/email-verification-controller-test/confirm-email-verification_404/http-response.adoc[]
+
+==== 이메일 입력 유효성 체크 실패 시 응답
+
+include::{snippets}/email-verification-controller-test/confirm-email-verification_400_validation_email/http-response.adoc[]
+
+==== 코드 입력 유효성 체크 실패 시 응답
+
+include::{snippets}/email-verification-controller-test/confirm-email-verification_400_validation_code/http-response.adoc[]
