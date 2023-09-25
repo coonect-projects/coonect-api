@@ -32,6 +32,7 @@ class NicknameValidationControllerTest extends RestDocsTestSupport {
         .andDo(restDocs.document(
             queryParameters(
                 parameterWithName("nickname").description("유저 닉네임")
+                    .attributes(constraints("8자 이상 20자 이하 최소 1글자 이상의 영어, 숫자, 특수문자 포함"))
             )
         ));
 
