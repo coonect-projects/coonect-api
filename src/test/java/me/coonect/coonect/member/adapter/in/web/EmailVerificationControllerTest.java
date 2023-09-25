@@ -1,81 +1,83 @@
 package me.coonect.coonect.member.adapter.in.web;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.BDDMockito.any;
+import static org.mockito.BDDMockito.willDoNothing;
+import static org.mockito.BDDMockito.willThrow;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.time.Duration;
-import me.coonect.coonect.member.adapter.in.web.dto.request.EmailVerificationConfirmRequest;
+import me.coonect.coonect.common.error.exception.BusinessException;
+import me.coonect.coonect.common.error.exception.ErrorCode;
+import me.coonect.coonect.global.RestDocsTestSupport;
 import me.coonect.coonect.member.adapter.in.web.dto.request.SendVerificationMailRequest;
-import me.coonect.coonect.member.application.port.out.persistence.EmailVerificationCodeRepository;
-import me.coonect.coonect.mock.TestContainer;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayNameGeneration;
-import org.junit.jupiter.api.DisplayNameGenerator;
+import me.coonect.coonect.member.application.domain.exception.EmailDuplicationException;
+import me.coonect.coonect.member.application.port.in.EmailVerificationUseCase;
 import org.junit.jupiter.api.Test;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
 
-@DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-class EmailVerificationControllerTest {
+@WebMvcTest(EmailVerificationController.class)
+class EmailVerificationControllerTest extends RestDocsTestSupport {
 
-  private EmailVerificationCodeRepository emailVerificationCodeRepository;
-
-  private EmailVerificationController emailVerificationController;
-
-  @BeforeEach
-  public void init() {
-    TestContainer testContainer = TestContainer.builder()
-        .codeGenerator(() -> "123456")
-        .exceptionEmail("exception@exception.com")
-        .build();
-    emailVerificationCodeRepository = testContainer.emailVerificationCodeRepository;
-
-    emailVerificationController = testContainer.emailVerificationController;
-  }
+  @MockBean
+  private EmailVerificationUseCase emailVerificationUseCase;
 
   @Test
-  public void 이메일_인증_메일_전송이_성공하면_201_응답을_내린다() throws Exception {
+  public void sendVerificationMail_201() throws Exception {
     // given
+    willDoNothing().given(emailVerificationUseCase).sendVerificationEmail(any());
+
+    // when
     SendVerificationMailRequest request = new SendVerificationMailRequest(
-        "duk9741@gmail.com");
-    // when
-    ResponseEntity<Void> result = emailVerificationController.sendVerificationMail(
-        request);
+        "test@test.com");
+
+    mockMvc.perform(post("/member/email/verification/request")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isCreated());
 
     // then
-    assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(201));
   }
 
   @Test
-  public void 인증_번호_검증에_성공하면_200_응답을_내린다() throws Exception {
+  public void sendVerificationMail_409() throws Exception {
     // given
-    String email = "duk9741@gmail.com";
-    String code = "123456";
-    emailVerificationCodeRepository.save(email, code, Duration.ZERO);
-    EmailVerificationConfirmRequest request = new EmailVerificationConfirmRequest(
-        email, code);
+    willThrow(new EmailDuplicationException("test@test.com"))
+        .given(emailVerificationUseCase).sendVerificationEmail(any());
 
     // when
-    ResponseEntity<Void> result = emailVerificationController.confirmEmailVerification(request);
+    SendVerificationMailRequest request = new SendVerificationMailRequest(
+        "test@test.com");
 
-    // then
-    assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(200));
+    mockMvc.perform(post("/member/email/verification/request")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isConflict())
+        .andExpect(jsonPath("$.code").value(ErrorCode.EMAIL_DUPLICATE.getCode()))
+        .andExpect(jsonPath("$.message").value(ErrorCode.EMAIL_DUPLICATE.getMessage()))
+        .andExpect(jsonPath("$.reasons[0]").value("test@test.com"));
   }
 
   @Test
-  public void 인증_번호_검증에_실패하면_404_응답을_내린다() throws Exception {
+  public void sendVerificationMail_400() throws Exception {
     // given
-    String email = "duk9741@gmail.com";
-    String code = "123456";
-    String differentCode = "999999";
-
-    emailVerificationCodeRepository.save(email, code, Duration.ZERO);
-    EmailVerificationConfirmRequest request = new EmailVerificationConfirmRequest(
-        email, differentCode);
+    willThrow(new BusinessException(ErrorCode.MAIL_DELIVERY_ERROR.getMessage(),
+        ErrorCode.MAIL_DELIVERY_ERROR))
+        .given(emailVerificationUseCase).sendVerificationEmail(any());
 
     // when
-    ResponseEntity<Void> result = emailVerificationController.confirmEmailVerification(request);
+    SendVerificationMailRequest request = new SendVerificationMailRequest(
+        "test@test.com");
 
-    // then
-    assertThat(result.getStatusCode()).isEqualTo(HttpStatusCode.valueOf(404));
+    mockMvc.perform(post("/member/email/verification/request")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content(objectMapper.writeValueAsString(request)))
+        .andExpect(status().isBadRequest())
+        .andExpect(jsonPath("$.code").value(ErrorCode.MAIL_DELIVERY_ERROR.getCode()))
+        .andExpect(jsonPath("$.message").value(ErrorCode.MAIL_DELIVERY_ERROR.getMessage()))
+        .andExpect(jsonPath("$.reasons").isEmpty());
   }
+
 }
