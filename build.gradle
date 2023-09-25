@@ -91,4 +91,10 @@ tasks.register('copyDocument', Copy) {
 
 bootJar {
     dependsOn asciidoctor
+    doFirst {
+        delete file('static/docs')
+    }
+    from("${asciidoctor.outputDir}") {
+        into 'static/docs'
+    }
 }
