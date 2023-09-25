@@ -20,7 +20,6 @@ public class MemberSignupCommand {
   private final String email;
 
   @EmailVerificationCode
-  @NotBlank
   private final String emailVerificationCode;
 
   @Password

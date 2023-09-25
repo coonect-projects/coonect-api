@@ -2,6 +2,7 @@ package me.coonect.coonect.member.application.port.in.model.validation.validator
 
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
+import java.util.Objects;
 import me.coonect.coonect.member.application.port.in.model.validation.Nickname;
 
 public class NicknameValidator implements ConstraintValidator<Nickname, String> {
@@ -10,6 +11,6 @@ public class NicknameValidator implements ConstraintValidator<Nickname, String> 
 
   @Override
   public boolean isValid(String value, ConstraintValidatorContext context) {
-    return value.matches(REGEX);
+    return !Objects.isNull(value) && value.matches(REGEX);
   }
 }

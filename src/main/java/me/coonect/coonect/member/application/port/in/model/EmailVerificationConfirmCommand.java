@@ -14,7 +14,6 @@ public class EmailVerificationConfirmCommand {
   String email;
 
   @EmailVerificationCode
-  @NotBlank
   String code;
 
   public EmailVerificationConfirmCommand(String email, String code) {
