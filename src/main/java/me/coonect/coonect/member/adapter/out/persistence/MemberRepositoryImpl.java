@@ -1,5 +1,6 @@
 package me.coonect.coonect.member.adapter.out.persistence;
 
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.member.application.domain.model.Member;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
@@ -24,6 +25,11 @@ public class MemberRepositoryImpl implements MemberRepository {
   @Override
   public boolean existsByEmail(String email) {
     return memberJpaRepository.existsByEmail(email);
+  }
+
+  @Override
+  public Optional<Member> findByEmail(String email) {
+    return memberJpaRepository.findByEmail(email).map(MemberJpaEntity::toMember);
   }
 
 

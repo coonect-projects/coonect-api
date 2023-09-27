@@ -3,6 +3,7 @@ package me.coonect.coonect.mock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import me.coonect.coonect.member.application.domain.model.Member;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 
@@ -14,6 +15,11 @@ public class FakeMemberRepository implements MemberRepository {
   @Override
   public boolean existsByEmail(String email) {
     return data.stream().anyMatch(member -> member.getEmail().equals(email));
+  }
+
+  @Override
+  public Optional<Member> findByEmail(String email) {
+    return data.stream().filter(member -> member.getEmail().equals(email)).findFirst();
   }
 
   @Override
