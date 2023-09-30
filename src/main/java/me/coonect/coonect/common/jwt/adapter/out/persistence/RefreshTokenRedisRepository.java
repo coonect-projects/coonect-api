@@ -26,4 +26,9 @@ public class RefreshTokenRedisRepository implements RefreshTokenRepository {
     return Optional.ofNullable(ops.get(KEY_PREFIX + username));
   }
 
+  @Override
+  public void delete(String username) {
+    redisTemplate.delete(KEY_PREFIX + username);
+  }
+
 }

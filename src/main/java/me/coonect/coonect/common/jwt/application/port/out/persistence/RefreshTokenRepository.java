@@ -10,4 +10,6 @@ public interface RefreshTokenRepository {
   void update(String username, String refreshToken);
 
   Optional<String> find(String username);
+
+  void delete(String username);
 }
