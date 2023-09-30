@@ -90,7 +90,7 @@ public class JwtService {
 
   public Authentication resolveAccessToken(String accessToken) {
     Algorithm algorithm = Algorithm.HMAC256(jwtProperties.getSecret());
-    JWTVerifier verifier = JWT.require(algorithm).build();
+    JWTVerifier verifier = JWT.require(algorithm).withSubject(ACCESS_TOKEN_SUBJECT).build();
     DecodedJWT decodeToken = verifier.verify(accessToken);
 
     String username = decodeToken.getClaim(USERNAME_CLAIM).asString();
