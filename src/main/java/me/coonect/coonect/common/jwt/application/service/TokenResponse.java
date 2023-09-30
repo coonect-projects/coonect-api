@@ -26,6 +26,11 @@ public class TokenResponse {
     send(response, objectMapper, HttpServletResponse.SC_OK);
   }
 
+  public void sendReissueResponse(HttpServletResponse response, ObjectMapper objectMapper)
+      throws IOException {
+    send(response, objectMapper, HttpServletResponse.SC_RESET_CONTENT);
+  }
+
   private void send(HttpServletResponse response, ObjectMapper objectMapper, int status)
       throws IOException {
     String body = objectMapper.writeValueAsString(this);
