@@ -39,6 +39,7 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-starter-config'
     implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+    implementation 'com.auth0:java-jwt:4.4.0'
     asciidoctorExt 'org.springframework.restdocs:spring-restdocs-asciidoctor'
     compileOnly 'org.projectlombok:lombok'
     runtimeOnly 'com.h2database:h2'

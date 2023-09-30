@@ -1,5 +1,6 @@
 package me.coonect.coonect.member.application.port.out.persistence;
 
+import java.util.Optional;
 import me.coonect.coonect.member.application.domain.model.Member;
 
 public interface MemberRepository {
@@ -10,4 +11,5 @@ public interface MemberRepository {
 
   boolean existsByEmail(String email);
 
+  Optional<Member> findByEmail(String email);
 }
