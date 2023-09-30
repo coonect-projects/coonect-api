@@ -3,9 +3,12 @@ package me.coonect.coonect.global;
 import static org.springframework.restdocs.snippet.Attributes.Attribute;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import me.coonect.coonect.common.jwt.application.service.JwtProperties;
+import me.coonect.coonect.common.jwt.application.service.JwtService;
 import me.coonect.coonect.common.security.configuration.SecurityConfiguration;
 import me.coonect.coonect.global.config.RestDocsConfiguration;
 import me.coonect.coonect.mock.FakeMemberRepository;
+import me.coonect.coonect.mock.FakeRefreshTokenRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayNameGeneration;
@@ -24,7 +27,10 @@ import org.springframework.web.context.WebApplicationContext;
 
 @Disabled
 @DisplayNameGeneration(DisplayNameGenerator.ReplaceUnderscores.class)
-@Import({RestDocsConfiguration.class, SecurityConfiguration.class, FakeMemberRepository.class})
+@Import({RestDocsConfiguration.class,
+    SecurityConfiguration.class,
+    FakeMemberRepository.class,
+    JwtService.class, FakeRefreshTokenRepository.class, JwtProperties.class})
 @ExtendWith(RestDocumentationExtension.class)
 public class RestDocsTestSupport {
 
