@@ -2,8 +2,10 @@ package me.coonect.coonect.common.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import me.coonect.coonect.common.jwt.application.service.JwtService;
 import me.coonect.coonect.common.security.login.filter.JsonLoginProcessingFilter;
-import me.coonect.coonect.common.security.login.handler.LoginFailureHandler;
+import me.coonect.coonect.common.security.login.handler.ErrorResponseAuthenticationFailureHandler;
+import me.coonect.coonect.common.security.login.handler.JwtAuthenticationSuccessHandler;
 import me.coonect.coonect.common.security.login.service.UserDetailsServiceImpl;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.context.annotation.Bean;
@@ -23,6 +25,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
@@ -43,6 +46,7 @@ public class SecurityConfiguration {
 
   private final ObjectMapper objectMapper;
   private final MemberRepository memberRepository;
+  private final JwtService jwtService;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -83,17 +87,22 @@ public class SecurityConfiguration {
     JsonLoginProcessingFilter jsonLoginProcessingFilter =
         new JsonLoginProcessingFilter(objectMapper);
 
-    jsonLoginProcessingFilter.setAuthenticationManager(
-        authenticationManager());
+    jsonLoginProcessingFilter.setAuthenticationManager(authenticationManager());
 
-    jsonLoginProcessingFilter.setAuthenticationFailureHandler(loginFailureHandler());
+    jsonLoginProcessingFilter.setAuthenticationFailureHandler(authenticationFailureHandler());
+    jsonLoginProcessingFilter.setAuthenticationSuccessHandler(authenticationSuccessHandler());
 
     return jsonLoginProcessingFilter;
   }
 
   @Bean
-  public AuthenticationFailureHandler loginFailureHandler() {
-    return new LoginFailureHandler(objectMapper);
+  public AuthenticationFailureHandler authenticationFailureHandler() {
+    return new ErrorResponseAuthenticationFailureHandler(objectMapper);
+  }
+
+  @Bean
+  public AuthenticationSuccessHandler authenticationSuccessHandler() {
+    return new JwtAuthenticationSuccessHandler(jwtService, objectMapper);
   }
 
   @Profile("!prod")
