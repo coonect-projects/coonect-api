@@ -210,7 +210,7 @@ class JwtAuthenticationProcessingFilterTest {
   @Test
   public void Access_Token_이_만료되었다면_request_에_exception_을_저장한다() throws Exception {
     // given
-    String accessToken = JWT.create().withSubject("refresh-token")
+    String accessToken = JWT.create().withSubject("access-token")
         .withIssuedAt(new Date(System.currentTimeMillis()))
         .withExpiresAt(new Date(System.currentTimeMillis() - 1000L))
         .withClaim("email", "duk9741@gmail.com")
@@ -239,7 +239,7 @@ class JwtAuthenticationProcessingFilterTest {
   @Test
   public void 잘못된_Secret_의_Access_Token_이라면_request_에_exception_을_저장한다() throws Exception {
     // given
-    String accessToken = JWT.create().withSubject("refresh-token")
+    String accessToken = JWT.create().withSubject("access-token")
         .withIssuedAt(new Date(System.currentTimeMillis()))
         .withExpiresAt(new Date(System.currentTimeMillis() - 1000L))
         .withClaim("email", "duk9741@gmail.com")
