@@ -2,7 +2,10 @@ package me.coonect.coonect.common.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
+import me.coonect.coonect.common.jwt.application.service.JwtProperties;
 import me.coonect.coonect.common.jwt.application.service.JwtService;
+import me.coonect.coonect.common.security.authentication.entrypoint.JwtAuthenticationEntryPoint;
+import me.coonect.coonect.common.security.authentication.filter.JwtAuthenticationProcessingFilter;
 import me.coonect.coonect.common.security.login.filter.JsonLoginProcessingFilter;
 import me.coonect.coonect.common.security.login.handler.ErrorResponseAuthenticationFailureHandler;
 import me.coonect.coonect.common.security.login.handler.JwtAuthenticationSuccessHandler;
@@ -22,6 +25,7 @@ import org.springframework.security.config.annotation.web.configurers.RequestCac
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
@@ -47,6 +51,7 @@ public class SecurityConfiguration {
   private final ObjectMapper objectMapper;
   private final MemberRepository memberRepository;
   private final JwtService jwtService;
+  private final JwtProperties jwtProperties;
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -58,8 +63,10 @@ public class SecurityConfiguration {
         .requestCache(RequestCacheConfigurer::disable)
         .sessionManagement(AbstractHttpConfigurer::disable);
 
-    http.addFilterAt(loginProcessingFilter(),
-        UsernamePasswordAuthenticationFilter.class);
+    http.exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint()));
+
+    http.addFilterAt(loginProcessingFilter(), UsernamePasswordAuthenticationFilter.class);
+    http.addFilterAfter(jwtAuthenticationProcessingFilter(), JsonLoginProcessingFilter.class);
 
     return http.build();
   }
@@ -103,6 +110,16 @@ public class SecurityConfiguration {
   @Bean
   public AuthenticationSuccessHandler authenticationSuccessHandler() {
     return new JwtAuthenticationSuccessHandler(jwtService, objectMapper);
+  }
+
+  @Bean
+  public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
+    return new JwtAuthenticationProcessingFilter(jwtService, jwtProperties, objectMapper);
+  }
+
+  @Bean
+  public AuthenticationEntryPoint authenticationEntryPoint() {
+    return new JwtAuthenticationEntryPoint(objectMapper);
   }
 
   @Profile("!prod")

@@ -4,13 +4,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.common.jwt.application.service.JwtService;
 import me.coonect.coonect.common.jwt.application.service.TokenResponse;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -32,11 +29,7 @@ public class JwtAuthenticationSuccessHandler implements AuthenticationSuccessHan
         .toList();
 
     TokenResponse tokenResponse = jwtService.generateTokens(username, roles);
-    String body = objectMapper.writeValueAsString(tokenResponse);
 
-    response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-    response.setCharacterEncoding(StandardCharsets.UTF_8.name());
-    response.getWriter().write(body);
-    response.setStatus(HttpStatus.OK.value());
+    tokenResponse.sendLoginResponse(response, objectMapper);
   }
 }

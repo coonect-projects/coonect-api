@@ -18,4 +18,9 @@ public class FakeRefreshTokenRepository implements RefreshTokenRepository {
   public Optional<String> find(String username) {
     return Optional.ofNullable(data.get(username));
   }
+
+  @Override
+  public void delete(String username) {
+    data.remove(username);
+  }
 }

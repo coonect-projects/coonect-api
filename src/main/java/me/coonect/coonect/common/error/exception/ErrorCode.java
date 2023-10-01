@@ -17,14 +17,22 @@ public enum ErrorCode {
   // Common
   INVALID_TYPE_VALUE(SC_BAD_REQUEST, "C-001", "Invalid Type Value"),
   INVALID_INPUT_VALUE(SC_BAD_REQUEST, "C-002", "Invalid Input Value"),
+  UNAUTHORIZED(SC_UNAUTHORIZED, "C-006", "Unauthorized"),
 
   // Authentication
   INVALID_USERNAME_OR_PASSWORD(SC_UNAUTHORIZED, "A-001", "Invalid Username or Password"),
+  TOKEN_EXPIRED(SC_UNAUTHORIZED, "A-002", "Token Expired"),
+  INVALID_TOKEN(SC_UNAUTHORIZED, "A-003", "Invalid Token"),
+
 
   // Business
   DUPLICATE(SC_CONFLICT, "B-001", "Duplicated Value"),
   NOT_FOUND(SC_NOT_FOUND, "B-002", "Entity Not Found"),
   MAIL_DELIVERY_ERROR(SC_BAD_REQUEST, "B-003", "Mail Delivery Error"),
+
+  // Secure
+  UNEXPECTED_REFRESH_TOKEN(SC_UNAUTHORIZED, "S-001",
+      "Unexpected Refresh Token. Connection From Another Location"),
 
   // Member
   EMAIL_DUPLICATE(SC_CONFLICT, "M-001", "Duplicate Email Address"),
