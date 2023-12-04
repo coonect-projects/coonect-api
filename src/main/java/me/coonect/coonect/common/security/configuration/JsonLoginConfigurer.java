@@ -2,7 +2,6 @@ package me.coonect.coonect.common.security.configuration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import me.coonect.coonect.common.security.login.filter.JsonLoginProcessingFilter;
-import me.coonect.coonect.common.security.login.handler.ErrorResponseAuthenticationFailureHandler;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -14,6 +13,9 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 import org.springframework.util.Assert;
 
+/**
+ * {@link JsonLoginProcessingFilter}를 설정한다. {@link AuthenticationSuccessHandler}와 {@link AuthenticationFailureHandler}의 설정이 필수이다.
+ */
 public class JsonLoginConfigurer extends AbstractHttpConfigurer<JsonLoginConfigurer, HttpSecurity> {
 
   private final JsonLoginProcessingFilter authFilter;
@@ -23,12 +25,13 @@ public class JsonLoginConfigurer extends AbstractHttpConfigurer<JsonLoginConfigu
 
   public JsonLoginConfigurer(ObjectMapper objectMapper) {
     this.authFilter = new JsonLoginProcessingFilter(objectMapper);
-    this.failureHandler = new ErrorResponseAuthenticationFailureHandler(objectMapper);
   }
 
   @Override
   public void configure(HttpSecurity http) throws Exception {
     Assert.notNull(successHandler, "successHandler cannot be null");
+    Assert.notNull(failureHandler, "failureHandler cannot be null");
+
     this.authFilter.setAuthenticationManager(http.getSharedObject(AuthenticationManager.class));
     this.authFilter.setAuthenticationSuccessHandler(this.successHandler);
     this.authFilter.setAuthenticationFailureHandler(this.failureHandler);

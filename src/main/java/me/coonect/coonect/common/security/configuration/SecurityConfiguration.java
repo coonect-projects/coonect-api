@@ -4,26 +4,22 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import me.coonect.coonect.common.jwt.application.service.JwtProperties;
 import me.coonect.coonect.common.jwt.application.service.JwtService;
-import me.coonect.coonect.common.security.authentication.entrypoint.JwtAuthenticationEntryPoint;
-import me.coonect.coonect.common.security.authentication.filter.JwtAuthenticationProcessingFilter;
+import me.coonect.coonect.common.security.login.handler.ErrorResponseAuthenticationFailureHandler;
 import me.coonect.coonect.common.security.login.handler.JwtAuthenticationSuccessHandler;
 import me.coonect.coonect.common.security.login.service.UserDetailsServiceImpl;
 import me.coonect.coonect.member.application.port.out.persistence.MemberRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Profile;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.annotation.web.configurers.RequestCacheConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.RequestMatcher;
 
@@ -48,7 +44,6 @@ public class SecurityConfiguration {
 
   @Bean
   public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-    http.userDetailsService(userDetailsService());
     http.authorizeHttpRequests(request -> request
             .requestMatchers(ALLOWED_REQUESTS).permitAll()
             .anyRequest().authenticated())
@@ -57,19 +52,23 @@ public class SecurityConfiguration {
         .requestCache(RequestCacheConfigurer::disable)
         .sessionManagement(AbstractHttpConfigurer::disable);
 
-    http.exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint()));
+    http.userDetailsService(userDetailsService());
 
     http.apply(jsonLogin()
-        .successHandler(authenticationSuccessHandler()));
+        .successHandler(authenticationSuccessHandler())
+        .failureHandler(authenticationFailureHandler()));
 
-    http.addFilterAfter(jwtAuthenticationProcessingFilter(),
-        UsernamePasswordAuthenticationFilter.class);
+    http.apply(jwtAuthentication());
 
     return http.build();
   }
 
   private JsonLoginConfigurer jsonLogin() {
     return new JsonLoginConfigurer(objectMapper);
+  }
+
+  private JwtAuthenticationConfigurer jwtAuthentication() {
+    return new JwtAuthenticationConfigurer(jwtService, jwtProperties, objectMapper);
   }
 
   @Bean
@@ -88,20 +87,8 @@ public class SecurityConfiguration {
   }
 
   @Bean
-  public JwtAuthenticationProcessingFilter jwtAuthenticationProcessingFilter() {
-    return new JwtAuthenticationProcessingFilter(jwtService, jwtProperties, objectMapper);
-  }
-
-  @Bean
-  public AuthenticationEntryPoint authenticationEntryPoint() {
-    return new JwtAuthenticationEntryPoint(objectMapper);
-  }
-
-  @Profile("!prod")
-  @Bean
-  public WebSecurityCustomizer configureApiDocsEnable() {
-    return web -> web.ignoring()
-        .requestMatchers("/docs/**");
+  public AuthenticationFailureHandler authenticationFailureHandler() {
+    return new ErrorResponseAuthenticationFailureHandler(objectMapper);
   }
 
 }
